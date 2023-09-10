@@ -1,0 +1,10 @@
+{
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "rest-client.environmentVariables": {
+    "local": {
+      "version": "v1",
+      "base_url": "http://localhost:6001",
+    },
+  }
+}
