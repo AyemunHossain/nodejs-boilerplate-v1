@@ -2,7 +2,7 @@ const mongoose = require('../library/mongodb');
 
 const UserSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    email: { type: String, required: false, default: null },
+    email: { type: String, required: false, default: null, unique: true  },
     salt: { type: String, required: false, default: null },
     hash: { type: String, required: false, default: null },
     createdAt: { type: Date, required: true, default: Date.now },
