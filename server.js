@@ -1,5 +1,5 @@
 const app = require('./app');
-const connectMongoDB = require('./library/mongodb');
+const connectMongoDB = require('./services/mongodb');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
 

@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:
+
+  # service: 1
+  mongoDB:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    networks:
+      - backend_network
+    volumes:
+      - type: volume
+        source: mongodb-data
+        target: /data/db
+  
+  # service: 2
+  redisDB:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - backend_network
+    volumes:
+      - type: volume
+        source: redis-data
+        target: /data
+  
+volumes:
+  mongodb-data:
+  redis-data:
+
+networks:
+  backend_network:
+    driver: bridge

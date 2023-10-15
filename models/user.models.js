@@ -1,4 +1,4 @@
-const mongoose = require('../library/mongodb');
+const mongoose = require('../services/mongodb');
 
 const UserSchema = new mongoose.Schema({
     name: { type: String, required: true },
