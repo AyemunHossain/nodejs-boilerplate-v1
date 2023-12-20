@@ -3,9 +3,7 @@
 
 ###
 POST {{base_url}}/api/user/register
-Origin: http://localhost:4000
 Content-Type: application/json
-version: 1.2.4
 
 {
   "name": "test",
@@ -17,9 +15,7 @@ version: 1.2.4
 
 ###
 POST {{base_url}}/api/user/login
-Origin: http://localhost:4000
 Content-Type: application/json
-version: 1.2.4
 
 {
   "email": "test@gmail.com",

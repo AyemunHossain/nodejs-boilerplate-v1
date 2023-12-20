@@ -1,10 +1,11 @@
 version: '3.3'
 
 services:
-
   # service: 1
   mongoDB:
     image: mongo:latest
+    container_name: mongoDB
+    restart: always
     ports:
       - '27017:27017'
     networks:
@@ -13,10 +14,12 @@ services:
       - type: volume
         source: mongodb-data
         target: /data/db
-  
+    
+
   # service: 2
   redisDB:
     image: redis:latest
+    container_name: redisDB
     restart: always
     ports:
       - '6379:6379'
@@ -26,7 +29,8 @@ services:
       - type: volume
         source: redis-data
         target: /data
-  
+    
+
 volumes:
   mongodb-data:
   redis-data:

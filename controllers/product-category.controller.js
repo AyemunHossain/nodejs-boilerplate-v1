@@ -7,6 +7,13 @@ const createProductCategory = async (req, res) => {
   const slug = slugGenerator(req.body.name);
 
   try {
+
+    const getSameSlugCategory = await productCategory.findOne({slug:slug});
+    if(getSameSlugCategory){
+      return res.status(400).json({
+        message: "Product Category already exist with same name",
+      });
+    }
     const newProductCategory = new productCategory({
       name: req.body.name,
       slug: slug,
@@ -39,20 +46,7 @@ const getAllProductCategories = async (req, res) => {
 // Find a single product category with a productCategoryId
 const getSingleProductCategory = async (req, res) => {
   try {
-    const schema = Joi.object({
-      id: Joi.string().required(),
-    });
-
-    const { error } = schema.validate(req.body);
-
-    if (error) {
-      return res.status(400).json({
-        error: error.details[0].message,
-      });
-    }
-
     const id = req.body.id;
-
     const productCategory = await productCategory.findById(id);
 
     if (!productCategory) {
