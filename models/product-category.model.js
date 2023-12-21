@@ -1,6 +1,6 @@
 const mongoose = require('../services/mongodb');
 
-const schema = new mongoose.Schema(
+const productCategorySchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -11,8 +11,17 @@ const schema = new mongoose.Schema(
       required: true,
       unique: true,
       trim: true
+    },
+    createdBy:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user'
+    },
+    lastUpdatedBy:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user'
     }
   }, { timestamps: true }
 )
 
-module.exports = mongoose.model('productCategory', schema);
+const productCategory = mongoose.model('productCategory', productCategorySchema);
+module.exports = productCategory;

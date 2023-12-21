@@ -1,6 +1,9 @@
+'use strict';
+
 const productCategory = require("../models/product-category.model.js");
 const Joi = require("joi");
 const slugGenerator = require("../utils/slug-generator");
+const mongoose = require('../services/mongodb');
 
 // Create and Save a new ProductCategory
 const createProductCategory = async (req, res) => {
@@ -17,6 +20,7 @@ const createProductCategory = async (req, res) => {
     const newProductCategory = new productCategory({
       name: req.body.name,
       slug: slug,
+      createdBy: req.user.id,
     });
     const savedProductCategory = await newProductCategory.save();
 
@@ -46,10 +50,11 @@ const getAllProductCategories = async (req, res) => {
 // Find a single product category with a productCategoryId
 const getSingleProductCategory = async (req, res) => {
   try {
-    const id = req.body.id;
-    const productCategory = await productCategory.findById(id);
+    const id = req.query.id;
+    const data = await productCategory.findOne({_id: id});
 
-    if (!productCategory) {
+    console.log({data})
+    if (!data) {
       return res.status(404).json({
         message: "Product Category not found with id " + id,
       });
@@ -57,7 +62,7 @@ const getSingleProductCategory = async (req, res) => {
 
     return res.status(200).json({
       message: "Product Category",
-      data: productCategory,
+      data: data,
     });
   } catch (err) {
     res.json({ message: err });
@@ -69,16 +74,17 @@ const updateProductCategory = async (req, res) => {
   try {
     const id = req.body.id;
     
-    const productCategory = await productCategory.findByIdAndUpdate(
+    const data = await productCategory.findByIdAndUpdate(
       id,
       {
         name: req.body.name,
         slug: slugGenerator(req.body.name),
+        lastUpdatedBy: req.user.id,
       },
       { new: true }
     );
 
-    if (!productCategory) {
+    if (!data) {
       return res.status(404).json({
         message: "Product Category not found with id " + id,
       });
@@ -86,7 +92,7 @@ const updateProductCategory = async (req, res) => {
 
     return res.status(200).json({
       message: "Product Category updated successfully",
-      data: productCategory,
+      data: data,
     });
   } catch (err) {
     res.json({ message: err });
@@ -97,10 +103,9 @@ const updateProductCategory = async (req, res) => {
 const deleteProductCategory = async (req, res) => {
   try {
     const id = req.body.id;
+    const data = await productCategory.findByIdAndRemove(id);
 
-    const productCategory = await productCategory.findByIdAndRemove(id);
-
-    if (!productCategory) {
+    if (!data) {
       return res.status(404).json({
         message: "Product Category not found with id " + id,
       });
@@ -108,14 +113,13 @@ const deleteProductCategory = async (req, res) => {
 
     return res.status(200).json({
       message: "Product Category deleted successfully",
-      data: productCategory,
     });
   } catch (err) {
     res.json({ message: err });
   }
 };
 
-const filterPorudctCategory = async (req, res) => {
+const searchProudctCategory = async (req, res) => {
   try {
     const query = req.body.query;
 
@@ -141,6 +145,38 @@ const filterPorudctCategory = async (req, res) => {
 };
 
 
+const filterPorudctCategory = async (req, res) => {
+  try {
+   
+    const {createdBy=null,lastUpdatedBy=null } = req.body 
+    var filter = {};
+    
+    if(createdBy){
+      filter.createdBy = new mongoose.Types.ObjectId(createdBy);;
+    }
+
+    if(lastUpdatedBy){
+      filter.lastUpdatedBy = new mongoose.Types.ObjectId(lastUpdatedBy);
+    }
+    
+    const data = await productCategory.find(filter);
+
+    if (!data) {
+      return res.status(404).json({
+        message: "Product Category not found "
+      });
+    }
+
+    return res.status(200).json({
+      message: "Product Categories",
+      data: data,
+    });
+    
+  } catch (err) {
+    res.json({ message: err });
+  }
+};
+
 
 module.exports = {
   createProductCategory,
@@ -148,5 +184,6 @@ module.exports = {
   getSingleProductCategory,
   updateProductCategory,
   deleteProductCategory,
+  searchProudctCategory,
   filterPorudctCategory,
 };

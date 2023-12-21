@@ -4,9 +4,10 @@
 ###
 POST {{base_url}}/api/product-category/create
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODNjOGM3ZjQ0YjMyOTY5M2ViM2Y3YyIsImlhdCI6MTcwMzEzNjQyOSwiZXhwIjoxNzAzMjIyODI5fQ.SARWmuBm86Rdyq-xtUkxa0Nh1WXOwzdA4jRbnGCK8yc
 
 {
-  "name": "test1"
+  "name": "test33w"
 }
 
 ###
@@ -14,32 +15,40 @@ Content-Type: application/json
 Content-Type: application/json
 
 ###
-{{base_url}}/api/product-category/65829ad158894a573bb20bf3
+{{base_url}}/api/product-category?id=6583d2e577ff682ff44eb2fb
 Content-Type: application/json
 
 ###
-POST {{base_url}}/api/product-category/update/
+POST {{base_url}}/api/product-category/update
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODNjOGM3ZjQ0YjMyOTY5M2ViM2Y3YyIsImlhdCI6MTcwMzEzNjQyOSwiZXhwIjoxNzAzMjIyODI5fQ.SARWmuBm86Rdyq-xtUkxa0Nh1WXOwzdA4jRbnGCK8yc
 
 {
-  "name": "test",
-  "email": "test@gmail.com",
-  "password": "3243243232"
+  "id": "6583cd209804fbe4853b837f",
+  "name": "test4444444"
 }
 
+###
 POST {{base_url}}/api/product-category/delete/
 Content-Type: application/json
 
 {
-  "name": "test",
-  "email": "test@gmail.com",
-  "password": "3243243232"
+    "id": "6583d2e577ff682ff44eb2fb"
+}
+
+###
+POST {{base_url}}/api/product-category/search
+Content-Type: application/json
+
+{
+  "query": "test33"
 }
 
 
+###
 POST {{base_url}}/api/product-category/filter
 Content-Type: application/json
 
 {
-  "query": "test"
+  "lastUpdatedBy": "6583c8c7f44b329693eb3f7c"
 }

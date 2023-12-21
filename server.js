@@ -1,3 +1,5 @@
+'use strict';
+
 const app = require('./app');
 const connectMongoDB = require('./services/mongodb');
 require('dotenv').config();
