@@ -1,10 +1,8 @@
 # Node.js Boilerplate
 
-![Node.js Logo](https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg)
-
 A simple and well-organized Node.js boilerplate to kickstart your projects quickly. This boilerplate provides a solid foundation with common tools and best practices, allowing you to focus on building amazing applications.
 
-## Features
+## Project Structural Features
 
 - **Express**: A fast, unopinionated, minimalist web framework for Node.js.
 - **ESLint**: Enforce coding style and find problematic patterns in your code.
@@ -12,6 +10,10 @@ A simple and well-organized Node.js boilerplate to kickstart your projects quick
 - **Docker**: Easily containerize your application for deployment.
 - **Continuous Integration**: Integrates with popular CI/CD platforms like Travis CI and GitHub Actions.
 - **Contributor Friendly**: We welcome contributions from the community.
+
+## Microservice
+
+- **Mongodb**: A document-oriented NoSQL database used for high volume data storage.
 
 ## Getting Started
 
