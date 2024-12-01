@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A basic nodejs boilerplate to start your project",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon server.js --inspect"
   },

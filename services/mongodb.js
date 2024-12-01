@@ -1,5 +1,7 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const options = {
     autoIndex: true,
@@ -9,12 +11,12 @@ const options = {
     family: 4 // Use IPv4
 };
 
-const uri = `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_NAME}?authSource=$${process.env.MONGODB_AUTH_SOURCE}`
+const uri = `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_NAME}?authSource=${process.env.MONGODB_AUTH_SOURCE}`;
 
-mongoose.connect(uri, options)
+mongoose.connect(uri, options);
 
 mongoose.connection.on('error', err => {
-	console.error(err);
+    console.error(err);
 });
 
 mongoose.connection.on('connected', () => {
@@ -25,4 +27,4 @@ mongoose.connection.on('disconnected', () => {
     console.log('MongoDB disconnected');
 });
 
-module.exports = mongoose;
+export default mongoose;

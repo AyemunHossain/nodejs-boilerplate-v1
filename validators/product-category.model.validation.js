@@ -1,4 +1,4 @@
-const Joi = require("joi");
+import Joi from 'joi';
 
 const createCategory = Joi.object({
   name: Joi.string().required(),
@@ -17,13 +17,11 @@ const deleteProductCategory = Joi.object({
   id: Joi.string().required(),
 });
 
-
 const filterPorudctCategory = Joi.object({
   query: Joi.string().required(),
 });
 
-
-module.exports = {
+export default{
   createCategory,
   getSingleProductCategory,
   updateProductCategory,

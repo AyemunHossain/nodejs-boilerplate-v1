@@ -1,6 +1,5 @@
-exports.next = ((error, req, res, next) => {
-    
-    const status = error.statusCode ;
+const next = (error, req, res, next) => {
+    const status = error.statusCode;
     const message = error.message;
     const data = error.data;
     res.status(status).json({
@@ -8,10 +7,15 @@ exports.next = ((error, req, res, next) => {
         statusCode: status,
         errorData: data
     });
-});
+};
 
-exports.route = ((req, res, next) => {
-    const err = new Error('Think twice about route!')
+const route = (req, res, next) => {
+    const err = new Error('Think twice about route!');
     err.statusCode = 404;
-    next(err)
-})
+    next(err);
+};
+
+export default {
+    next,
+    route
+}

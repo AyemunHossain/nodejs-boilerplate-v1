@@ -1,20 +1,17 @@
-'use strict';
-
-const productCategory = require("../models/product-category.model.js");
-const Joi = require("joi");
-const slugGenerator = require("../utils/slug-generator");
-const mongoose = require('../services/mongodb');
+import productCategory from "../models/product-category.model.js";
+import Joi from "joi";
+import slugGenerator from "../utils/slug-generator.js";
+import mongoose from '../services/mongodb.js';
 
 // Create and Save a new ProductCategory
 const createProductCategory = async (req, res) => {
   const slug = slugGenerator(req.body.name);
 
   try {
-
-    const getSameSlugCategory = await productCategory.findOne({slug:slug});
-    if(getSameSlugCategory){
+    const getSameSlugCategory = await productCategory.findOne({ slug });
+    if (getSameSlugCategory) {
       return res.status(400).json({
-        message: "Product Category already exist with same name",
+        message: "Product Category already exists with the same name",
       });
     }
     const newProductCategory = new productCategory({
@@ -51,9 +48,8 @@ const getAllProductCategories = async (req, res) => {
 const getSingleProductCategory = async (req, res) => {
   try {
     const id = req.query.id;
-    const data = await productCategory.findOne({_id: id});
+    const data = await productCategory.findOne({ _id: id });
 
-    console.log({data})
     if (!data) {
       return res.status(404).json({
         message: "Product Category not found with id " + id,
@@ -73,7 +69,7 @@ const getSingleProductCategory = async (req, res) => {
 const updateProductCategory = async (req, res) => {
   try {
     const id = req.body.id;
-    
+
     const data = await productCategory.findByIdAndUpdate(
       id,
       {
@@ -119,7 +115,7 @@ const deleteProductCategory = async (req, res) => {
   }
 };
 
-const searchProudctCategory = async (req, res) => {
+const searchProductCategory = async (req, res) => {
   try {
     const query = req.body.query;
 
@@ -138,32 +134,30 @@ const searchProudctCategory = async (req, res) => {
       message: "Product Categories",
       data: productCategories,
     });
-    
+
   } catch (err) {
     res.json({ message: err });
   }
 };
 
-
-const filterPorudctCategory = async (req, res) => {
+const filterProductCategory = async (req, res) => {
   try {
-   
-    const {createdBy=null,lastUpdatedBy=null } = req.body 
-    var filter = {};
-    
-    if(createdBy){
-      filter.createdBy = new mongoose.Types.ObjectId(createdBy);;
+    const { createdBy = null, lastUpdatedBy = null } = req.body;
+    let filter = {};
+
+    if (createdBy) {
+      filter.createdBy = new mongoose.Types.ObjectId(createdBy);
     }
 
-    if(lastUpdatedBy){
+    if (lastUpdatedBy) {
       filter.lastUpdatedBy = new mongoose.Types.ObjectId(lastUpdatedBy);
     }
-    
+
     const data = await productCategory.find(filter);
 
     if (!data) {
       return res.status(404).json({
-        message: "Product Category not found "
+        message: "Product Category not found",
       });
     }
 
@@ -171,19 +165,18 @@ const filterPorudctCategory = async (req, res) => {
       message: "Product Categories",
       data: data,
     });
-    
+
   } catch (err) {
     res.json({ message: err });
   }
 };
 
-
-module.exports = {
+export default {
   createProductCategory,
   getAllProductCategories,
   getSingleProductCategory,
   updateProductCategory,
   deleteProductCategory,
-  searchProudctCategory,
-  filterPorudctCategory,
+  searchProductCategory,
+  filterProductCategory,
 };

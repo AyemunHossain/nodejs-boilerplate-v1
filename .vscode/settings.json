@@ -5,6 +5,7 @@
     "local": {
       "version": "v1",
       "base_url": "http://localhost:6001",
+      "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NGNiM2U1NWJiOTc4M2E2OGNlY2E5ZiIsImlhdCI6MTczMzA4MDAzNywiZXhwIjoxNzMzMTY2NDM3fQ.Lya-MvjdgNZIwSzazbSB1d2eC9YFRVM3QyY9Grr8oUQ"
     },
   }
 }

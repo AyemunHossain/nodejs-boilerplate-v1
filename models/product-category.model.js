@@ -1,4 +1,4 @@
-const mongoose = require('../services/mongodb');
+import mongoose from '../services/mongodb.js';
 
 const productCategorySchema = new mongoose.Schema(
   {
@@ -12,16 +12,17 @@ const productCategorySchema = new mongoose.Schema(
       unique: true,
       trim: true
     },
-    createdBy:{
+    createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'user'
     },
-    lastUpdatedBy:{
+    lastUpdatedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'user'
     }
-  }, { timestamps: true }
-)
+  },
+  { timestamps: true }
+);
 
 const productCategory = mongoose.model('productCategory', productCategorySchema);
-module.exports = productCategory;
+export default productCategory;
